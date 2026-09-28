@@ -1,21 +1,23 @@
 from typing import Any, List
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
+
+from app.api.deps import (
+    get_current_active_worker,
+    get_current_admin,
+    get_current_user,
+)
 from app.core.database import get_db
 from app.models.user import User, WorkerProfile
 from app.schemas.user import (
+    LocationPing,
     UserResponse,
     UserUpdate,
     WorkerProfileResponse,
     WorkerProfileUpdate,
-    LocationPing,
-)
-from app.api.deps import (
-    get_current_user,
-    get_current_active_worker,
-    get_current_admin,
 )
 from app.services.dispatch_service import DispatchService
 

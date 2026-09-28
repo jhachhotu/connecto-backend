@@ -1,14 +1,16 @@
 from datetime import datetime, timezone
 from typing import Any
+
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.api.deps import get_current_active_worker, get_current_user
 from app.core.database import get_db
 from app.models.job import ServiceJob, TimelineEvent
 from app.models.quote import Quote
 from app.models.user import User
-from app.schemas.quote import QuoteCreate, QuoteReviewRequest, QuoteResponse
-from app.api.deps import get_current_user, get_current_active_worker
+from app.schemas.quote import QuoteCreate, QuoteResponse, QuoteReviewRequest
 
 router = APIRouter()
 

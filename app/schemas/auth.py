@@ -1,4 +1,5 @@
 from typing import Optional
+
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -32,7 +33,7 @@ class RegisterRequest(BaseModel):
     phone: Optional[str] = None
     role: str = Field(default="customer", pattern="^(customer|worker|admin)$")
     avatar: Optional[str] = None
-    
+
     # If registering as worker
     category_id: Optional[str] = None
     experience_years: Optional[int] = 3

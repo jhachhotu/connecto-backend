@@ -1,11 +1,10 @@
-import pytest
-from app.services.dispatch_service import calculate_haversine_distance
 from app.core.security import (
-    get_password_hash,
-    verify_password,
     create_access_token,
     decode_token,
+    get_password_hash,
+    verify_password,
 )
+from app.services.dispatch_service import calculate_haversine_distance
 
 
 def test_password_hashing():

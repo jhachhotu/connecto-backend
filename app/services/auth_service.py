@@ -1,16 +1,18 @@
 from typing import Optional, Tuple
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+
 from fastapi import HTTPException, status
-from app.models.user import User, WorkerProfile
-from app.schemas.auth import RegisterRequest
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.security import (
-    verify_password,
-    get_password_hash,
     create_access_token,
     create_refresh_token,
+    get_password_hash,
     verify_google_oauth_token,
+    verify_password,
 )
+from app.models.user import User, WorkerProfile
+from app.schemas.auth import RegisterRequest
 
 
 class AuthService:

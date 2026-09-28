@@ -1,5 +1,6 @@
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.security import get_password_hash
 from app.models.category import ServiceCategory
 from app.models.user import User, WorkerProfile

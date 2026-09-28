@@ -1,14 +1,16 @@
-from datetime import datetime, timezone
 import uuid
+from datetime import datetime, timezone
+
 from sqlalchemy import (
     Column,
-    String,
-    Float,
     DateTime,
+    Float,
     ForeignKey,
+    String,
     Text,
 )
 from sqlalchemy.orm import relationship
+
 from app.core.database import Base
 
 
@@ -19,13 +21,13 @@ class JobRating(Base):
     job_id = Column(String(50), ForeignKey("service_jobs.id", ondelete="CASCADE"), unique=True, nullable=False, index=True)
     customer_id = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
     worker_id = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
-    
+
     overall = Column(Float, nullable=False)
     skill = Column(Float, nullable=False, default=5.0)
     punctuality = Column(Float, nullable=False, default=5.0)
     communication = Column(Float, nullable=False, default=5.0)
     pricing_transparency = Column(Float, nullable=False, default=5.0)
-    
+
     review_text = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)
 

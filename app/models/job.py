@@ -1,17 +1,19 @@
-from datetime import datetime, timezone
 import uuid
+from datetime import datetime, timezone
+
 from sqlalchemy import (
-    Column,
-    String,
-    Float,
-    Integer,
-    Boolean,
-    DateTime,
-    ForeignKey,
     JSON,
+    Boolean,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
     Text,
 )
 from sqlalchemy.orm import relationship
+
 from app.core.database import Base
 
 
@@ -28,14 +30,14 @@ class ServiceJob(Base):
     customer_id = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
     worker_id = Column(String(36), ForeignKey("users.id"), nullable=True, index=True)
     category_id = Column(String(50), ForeignKey("service_categories.id"), nullable=False)
-    
+
     # Request Details
     category_name = Column(String(100), nullable=False)
     problem_type = Column(String(150), nullable=False)
     description = Column(Text, nullable=False)
     photos = Column(JSON, default=list, nullable=False)
     urgency = Column(String(20), default="NORMAL", nullable=False)  # NORMAL, URGENT, EMERGENCY
-    
+
     # State Machine
     status = Column(
         String(30),
@@ -43,7 +45,7 @@ class ServiceJob(Base):
         nullable=False,
         index=True
     )  # SEARCHING, ACCEPTED, EN_ROUTE, ARRIVED, DIAGNOSING, QUOTE_CREATED, QUOTE_APPROVED, REPAIRING, PAYMENT_PENDING, PAYMENT_PROCESSING, COMPLETED, CANCELLED, DISPUTED
-    
+
     # Location
     customer_address = Column(String(300), nullable=False)
     customer_lat = Column(Float, default=12.9716, nullable=False)

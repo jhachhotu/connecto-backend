@@ -23,22 +23,21 @@ Payout note:
   This is recorded in WorkerPayout and added to WorkerProfile earnings.
 """
 
-import hmac
 import hashlib
+import hmac
 import json
 import uuid
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
 from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.models.job import ServiceJob, TimelineEvent
 from app.models.payment import Payment, WorkerPayout
 from app.models.user import WorkerProfile
-
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Helpers

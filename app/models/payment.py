@@ -1,14 +1,16 @@
-from datetime import datetime, timezone
 import uuid
+from datetime import datetime, timezone
+
 from sqlalchemy import (
-    Column,
-    String,
-    Float,
-    DateTime,
-    ForeignKey,
     JSON,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    String,
 )
 from sqlalchemy.orm import relationship
+
 from app.core.database import Base
 
 
@@ -24,23 +26,23 @@ class Payment(Base):
     job_id = Column(String(50), ForeignKey("service_jobs.id", ondelete="CASCADE"), unique=True, nullable=False, index=True)
     customer_id = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
     worker_id = Column(String(36), ForeignKey("users.id"), nullable=True, index=True)
-    
+
     amount = Column(Float, nullable=False)
     currency = Column(String(10), default="INR", nullable=False)
-    
+
     # Status: PENDING, HELD_IN_ESCROW, RELEASED_TO_WORKER, REFUNDED, FAILED
     status = Column(String(30), default="PENDING", nullable=False, index=True)
     method = Column(String(30), default="UPI", nullable=False)  # UPI, CARD, NET_BANKING, CASH
     gateway = Column(String(30), default="RAZORPAY", nullable=False)  # RAZORPAY, CASH
-    
+
     # Gateway Identifiers
     gateway_order_id = Column(String(100), nullable=True, index=True)
     gateway_payment_id = Column(String(100), nullable=True, index=True)
     gateway_signature = Column(String(255), nullable=True)
     invoice_number = Column(String(50), default=generate_invoice_num, unique=True, nullable=False)
-    
+
     breakdown = Column(JSON, default=dict, nullable=False)  # diagnosticFee, labour, parts, platformFee, tax
-    
+
     paid_at = Column(DateTime(timezone=True), nullable=True)
     escrow_released_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)

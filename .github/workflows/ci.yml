@@ -107,7 +107,7 @@ jobs:
         run: ruff check . --select E,F,W,I --ignore E501
 
       - name: Run Pytest unit tests
-        run: pytest tests/ -v --tb=short
+        run: PYTHONPATH=. pytest tests/ -v --tb=short
 
   # ──────────────────────────────────────────────────────────
   # Job 2: Build & Push Docker Image to GHCR

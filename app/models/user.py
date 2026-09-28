@@ -1,17 +1,18 @@
-from datetime import datetime, timezone
 import uuid
+from datetime import datetime, timezone
+
 from sqlalchemy import (
-    Column,
-    String,
-    Boolean,
-    Float,
-    Integer,
-    DateTime,
-    ForeignKey,
     JSON,
-    Text,
+    Boolean,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
 )
 from sqlalchemy.orm import relationship
+
 from app.core.database import Base
 
 
@@ -57,7 +58,7 @@ class WorkerProfile(Base):
     experience_years = Column(Integer, default=3, nullable=False)
     is_online = Column(Boolean, default=True, nullable=False, index=True)
     verification_status = Column(String(30), default="VERIFIED", nullable=False)  # NOT_STARTED, SUBMITTED, UNDER_REVIEW, VERIFIED, REJECTED
-    
+
     # KYC & Verified Passport
     aadhaar_verified = Column(Boolean, default=True, nullable=False)
     police_cleared = Column(Boolean, default=True, nullable=False)

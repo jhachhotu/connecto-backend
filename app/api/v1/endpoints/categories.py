@@ -1,16 +1,18 @@
 from typing import Any, List
+
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.api.deps import get_current_admin
 from app.core.database import get_db
 from app.models.category import ServiceCategory
 from app.models.user import User
 from app.schemas.category import (
     ServiceCategoryCreate,
-    ServiceCategoryUpdate,
     ServiceCategoryResponse,
+    ServiceCategoryUpdate,
 )
-from app.api.deps import get_current_admin
 
 router = APIRouter()
 
@@ -24,7 +26,7 @@ async def list_categories(
     """
     stmt = (
         select(ServiceCategory)
-        .where(ServiceCategory.is_active == True)
+        .where(ServiceCategory.is_active.is_(True))
         .order_by(ServiceCategory.display_order.asc())
     )
     res = await db.execute(stmt)

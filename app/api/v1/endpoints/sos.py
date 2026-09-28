@@ -1,12 +1,14 @@
 from typing import Any, List
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
+
+from fastapi import APIRouter, Depends, status
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.api.deps import get_current_admin, get_current_user
 from app.core.database import get_db
 from app.models.sos import SOSIncident
 from app.models.user import User
-from app.schemas.sos import SOSCreate, SOSStatusUpdate, SOSResponse
-from app.api.deps import get_current_user, get_current_admin
+from app.schemas.sos import SOSCreate, SOSResponse, SOSStatusUpdate
 from app.services.sos_service import SOSService
 
 router = APIRouter()

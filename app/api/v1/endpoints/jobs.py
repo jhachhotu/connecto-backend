@@ -1,22 +1,24 @@
 from datetime import datetime, timezone
 from typing import Any, List, Optional
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from sqlalchemy import and_, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, and_, or_
 from sqlalchemy.orm import selectinload
+
+from app.api.deps import (
+    get_current_active_worker,
+    get_current_user,
+)
 from app.core.database import get_db
-from app.models.job import ServiceJob, TimelineEvent
 from app.models.category import ServiceCategory
+from app.models.job import ServiceJob, TimelineEvent
 from app.models.user import User, WorkerProfile
 from app.schemas.job import (
+    JobCancelRequest,
     JobCreate,
     JobStatusUpdate,
-    JobCancelRequest,
     ServiceJobResponse,
-)
-from app.api.deps import (
-    get_current_user,
-    get_current_active_worker,
 )
 from app.services.dispatch_service import DispatchService
 

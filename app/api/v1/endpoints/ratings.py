@@ -1,13 +1,15 @@
-from typing import Any, List
+from typing import Any
+
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func
+
+from app.api.deps import get_current_user
 from app.core.database import get_db
 from app.models.job import ServiceJob, TimelineEvent
 from app.models.rating import JobRating
 from app.models.user import User, WorkerProfile
 from app.schemas.rating import RatingCreate, RatingResponse, WorkerRatingSummary
-from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -106,7 +108,7 @@ async def get_worker_ratings_summary(
         func.avg(JobRating.communication),
         func.avg(JobRating.pricing_transparency),
     ).where(JobRating.worker_id == worker_id)
-    
+
     stats_res = await db.execute(stats_stmt)
     overall, count, skill, punct, comm, pricing = stats_res.one()
 

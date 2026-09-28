@@ -1,10 +1,12 @@
 from datetime import datetime, timezone
 from typing import Optional
-from sqlalchemy.ext.asyncio import AsyncSession
+
+from fastapi import HTTPException
 from sqlalchemy import select
-from fastapi import HTTPException, status
-from app.models.sos import SOSIncident
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.models.job import ServiceJob, TimelineEvent
+from app.models.sos import SOSIncident
 from app.models.user import User
 
 

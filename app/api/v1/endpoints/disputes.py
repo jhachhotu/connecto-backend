@@ -1,15 +1,17 @@
 from datetime import datetime, timezone
 from typing import Any, List
+
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.api.deps import get_current_admin, get_current_user
 from app.core.database import get_db
+from app.models.dispute import DisputeRecord
 from app.models.job import ServiceJob, TimelineEvent
 from app.models.payment import Payment
-from app.models.dispute import DisputeRecord
 from app.models.user import User
 from app.schemas.dispute import DisputeCreate, DisputeResolveRequest, DisputeResponse
-from app.api.deps import get_current_user, get_current_admin
 
 router = APIRouter()
 
@@ -71,7 +73,7 @@ async def list_disputes(
     stmt = select(DisputeRecord)
     if current_user.role != "admin":
         stmt = stmt.where(DisputeRecord.raised_by_user_id == current_user.id)
-    
+
     stmt = stmt.order_by(DisputeRecord.created_at.desc())
     res = await db.execute(stmt)
     disputes = res.scalars().all()

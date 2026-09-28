@@ -1,10 +1,11 @@
 import math
 from typing import List, Optional, Tuple
+
+from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, and_
-from sqlalchemy.orm import selectinload
-from app.models.user import User, WorkerProfile
+
 from app.models.job import ServiceJob, TimelineEvent
+from app.models.user import User, WorkerProfile
 
 
 def calculate_haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -41,8 +42,8 @@ class DispatchService:
             .join(WorkerProfile, User.id == WorkerProfile.user_id)
             .where(
                 and_(
-                    User.is_active == True,
-                    WorkerProfile.is_online == True,
+                    User.is_active.is_(True),
+                    WorkerProfile.is_online.is_(True),
                     WorkerProfile.category_id == category_id,
                     WorkerProfile.verification_status == "VERIFIED",
                 )
