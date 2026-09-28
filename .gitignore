@@ -1,0 +1,53 @@
+# ─── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# ─── Virtual Environments ─────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ─── Distribution / Packaging ────────────────────────────
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+
+# ─── Environment Files ────────────────────────────────────
+# NEVER commit real secrets
+.env
+.env.local
+.env.production
+.env.staging
+# Keep the example template
+!.env.example
+
+# ─── Testing & Coverage ───────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# ─── Linting & Type Checking ─────────────────────────────
+.mypy_cache/
+.ruff_cache/
+
+# ─── IDE / Editor ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# ─── Logs ─────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Docker (keep compose files) ─────────────────────────
+# nothing extra here — compose files are intentionally tracked
