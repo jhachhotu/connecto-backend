@@ -224,3 +224,6 @@ pytest
 - **RBAC (Role-Based Access Control)**: Strict dependency injection guards (`get_current_active_worker`, `get_current_admin`).
 - **SQL Injection Prevention**: 100% parameterized queries via SQLAlchemy 2.0 ORM.
 - **CORS Protection**: Explicit origin whitelisting with credentials support.
+
+
+fix the render deploy hook 
